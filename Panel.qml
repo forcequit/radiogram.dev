@@ -22,6 +22,12 @@ Panel {
     return false
   }
 
+  function safeTitle() {
+    return root.hostWidget && typeof root.hostWidget.safeTitle === "function"
+      ? root.hostWidget.safeTitle()
+      : "No station"
+  }
+
   function player() {
     return root.hostWidget ? root.hostWidget.radiogramPlayer : null
   }
@@ -49,6 +55,7 @@ Panel {
 
         Text {
           width: parent.width
+          textFormat: Text.PlainText
           text: "Radiogram"
           color: root.barForeground
           font.family: root.bar ? root.bar.fontFamily : Style.font.family
@@ -59,7 +66,8 @@ Panel {
 
         Text {
           width: parent.width
-          text: root.player() ? (root.player().trackTitle || "No station") : "No player"
+          textFormat: Text.PlainText
+          text: root.player() ? root.safeTitle() : "No player"
           color: root.barForeground
           font.family: root.bar ? root.bar.fontFamily : Style.font.family
           font.pixelSize: Style.font.body
@@ -68,6 +76,7 @@ Panel {
 
         Text {
           width: parent.width
+          textFormat: Text.PlainText
           text: root.player() ? (root.player().isPlaying ? "Playing" : "Paused") : "Idle"
           color: root.barForeground
           font.family: root.bar ? root.bar.fontFamily : Style.font.family
@@ -82,6 +91,7 @@ Panel {
 
           Text {
             anchors.centerIn: parent
+            textFormat: Text.PlainText
             text: root.player() ? (root.player().isPlaying ? "Pause" : "Play") : "Open Radiogram"
             color: root.barForeground
             font.family: root.bar ? root.bar.fontFamily : Style.font.family
