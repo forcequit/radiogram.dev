@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "radiogram.radiogram",
+  "name": "Radiogram",
+  "version": "1.0.0",
+  "author": "Radiogram",
+  "license": "MIT",
+  "description": "Control Radiogram web radio from the Omarchy bar. Shows the current station, play/pause state, and opens the player.",
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "BarWidget.qml"
+  },
+  "barWidget": {
+    "displayName": "Radiogram",
+    "category": "Media",
+    "allowMultiple": false,
+    "defaultSection": "center"
+  }
+}
