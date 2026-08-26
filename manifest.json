@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "radiogram.radiogram",
   "name": "Radiogram",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Radiogram",
   "license": "MIT",
   "description": "Control Radiogram web radio from the Omarchy bar. Shows the current station, play/pause state, and opens the player.",

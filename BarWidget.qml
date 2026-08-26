@@ -7,18 +7,23 @@ import qs.Ui
 // Radiogram bar widget for Omarchy Quattro.
 // Finds the browser's MPRIS player by artist == "Radiogram" and shows
 // the current station. Click to play/pause; right-click to open the panel.
-Item {
+BarWidget {
   id: root
+  moduleName: "radiogram.radiogram"
 
-  property var bar: null
   property var radiogramPlayer: null
 
+  implicitWidth: button.implicitWidth
+  implicitHeight: button.implicitHeight
+
   function findRadiogramPlayer() {
-    const players = Mpris.players
-    const count = players.count
+    const model = Mpris.players
+    const players = model && model.values ? model.values : model
+    const count = players ? (players.length !== undefined ? players.length : players.count) : 0
     for (let i = 0; i < count; i++) {
-      const p = players.get(i)
-      if (p.trackArtist === "Radiogram") {
+      const p = players.length !== undefined ? players[i] : players.get(i)
+      const artist = p && p.trackArtist !== undefined ? String(p.trackArtist) : ""
+      if (artist.split(",").some(name => name.trim() === "Radiogram")) {
         root.radiogramPlayer = p
         return
       }
@@ -83,9 +88,10 @@ Item {
     source: Qt.resolvedUrl("Panel.qml")
     visible: false
     onLoaded: {
-      root.panelLoader.item.bar = root.bar
-      root.panelLoader.item.anchorItem = button
-      root.panelLoader.item.hostWidget = root
+      if (!item) return
+      item.bar = root.bar
+      item.anchorItem = button
+      item.hostWidget = root
     }
   }
 
